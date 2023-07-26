@@ -195,8 +195,8 @@ namespace Microsoft.Maui.Handlers
 					handled = true;
 				}
 				else if (
-					currentInputImeFlag == ImeAction.Done &&
-					e.ActionId == ImeAction.ImeNull
+					currentInputImeFlag == ImeAction.Done
+					&& e.ActionId == ImeAction.ImeNull
 					&& e.Event?.KeyCode == Keycode.Enter
 					&& e.Event?.Action == KeyEventActions.Down)
 				{

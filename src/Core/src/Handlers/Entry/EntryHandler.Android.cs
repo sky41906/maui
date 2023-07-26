@@ -2,6 +2,7 @@
 using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Views;
+using Android.Views.InputMethods;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.Content;
 using static Android.Views.View;
@@ -182,18 +183,33 @@ namespace Microsoft.Maui.Handlers
 		void OnEditorAction(object? sender, EditorActionEventArgs e)
 		{
 			var returnType = VirtualView?.ReturnType;
+			bool handled = false;
 
-			if (returnType != null)
+			if (returnType is not null)
 			{
 				var currentInputImeFlag = returnType.Value.ToPlatform();
 
 				if (e.IsCompletedAction(currentInputImeFlag))
 				{
 					VirtualView?.Completed();
+					handled = true;
+				}
+				else if (
+					currentInputImeFlag == ImeAction.Done &&
+					e.ActionId == ImeAction.ImeNull
+					&& e.Event?.KeyCode == Keycode.Enter
+					&& e.Event?.Action == KeyEventActions.Down)
+				{
+					// If the user has indicated that they want this to be a "done" field
+					// then we will mark this as handled if we detect the enter key.
+					// The reason for doing this on Down is that this will now cause the "Up"
+					// to still be processed by this Editor action
+					// The `IsCompletedAction` above will process the `completed`
+					handled = true;
 				}
 			}
 
-			e.Handled = false;
+			e.Handled = handled;
 		}
 
 		private void OnSelectionChanged(object? sender, EventArgs e)

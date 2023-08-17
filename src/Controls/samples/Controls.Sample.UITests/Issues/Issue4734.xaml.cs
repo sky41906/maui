@@ -14,7 +14,7 @@ namespace Maui.Controls.Sample.Issues
 
 		void OnSpanTapped(object sender, TappedEventArgs e)
 		{
-			ResultLabel.Text = $"Span tapped!";
+			TapResultLabel.Text = $"Span tapped!";
 		}
 	}
 }

@@ -8,6 +8,13 @@ namespace Microsoft.Maui.Platform
 	{
 		public static void Clear(this UIImageView imageView)
 		{
+			// stop the animation
+			if (imageView is MauiImageView mauiImageView)
+			{
+				mauiImageView.StopAnimating();
+				mauiImageView.Animation = null;
+			}
+
 			imageView.Image = null;
 		}
 

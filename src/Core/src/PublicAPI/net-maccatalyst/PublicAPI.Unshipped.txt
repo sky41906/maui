@@ -47,7 +47,6 @@ Microsoft.Maui.Platform.IImageSourcePartSetter.SetImageSource(UIKit.UIImage? pla
 Microsoft.Maui.Platform.ImageSourcePartLoader.ImageSourcePartLoader(Microsoft.Maui.Platform.IImageSourcePartSetter! setter) -> void
 Microsoft.Maui.Platform.MauiImageView.Animation.get -> Microsoft.Maui.Platform.MauiCAKeyFrameAnimation?
 Microsoft.Maui.Platform.MauiImageView.Animation.set -> void
-Microsoft.Maui.Platform.MauiImageView.AnimationStopped -> System.EventHandler<CoreAnimation.CAAnimationStateEventArgs!>?
 Microsoft.Maui.Platform.MauiImageView.MauiImageView(Microsoft.Maui.Handlers.IImageHandler! handler) -> void
 override Microsoft.Maui.Platform.MauiImageView.Dispose(bool disposing) -> void
 override Microsoft.Maui.Platform.MauiImageView.Image.get -> UIKit.UIImage?

@@ -43,7 +43,6 @@ Microsoft.Maui.Platform.ImageSourcePartLoader.ImageSourcePartLoader(Microsoft.Ma
 Microsoft.Maui.Platform.KeyboardAutoManagerScroll
 Microsoft.Maui.Platform.MauiImageView.Animation.get -> Microsoft.Maui.Platform.MauiCAKeyFrameAnimation?
 Microsoft.Maui.Platform.MauiImageView.Animation.set -> void
-Microsoft.Maui.Platform.MauiImageView.AnimationStopped -> System.EventHandler<CoreAnimation.CAAnimationStateEventArgs!>?
 Microsoft.Maui.Platform.MauiImageView.MauiImageView(Microsoft.Maui.Handlers.IImageHandler! handler) -> void
 Microsoft.Maui.Platform.MauiView.CrossPlatformLayout.get -> Microsoft.Maui.ICrossPlatformLayout?
 Microsoft.Maui.Platform.MauiView.CrossPlatformLayout.set -> void

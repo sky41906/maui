@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CoreAnimation;
 using CoreGraphics;
+using Microsoft.Maui.Graphics;
 using UIKit;
 
 namespace Microsoft.Maui.Platform
@@ -11,9 +12,6 @@ namespace Microsoft.Maui.Platform
 		bool _isDisposed;
 		const string AnimationLayerName = "MauiUIImageViewAnimation";
 		WeakReference<MauiCAKeyFrameAnimation>? _animation;
-
-		[UnconditionalSuppressMessage("Memory", "MA0001", Justification = "Proven safe in test: XYZ")]
-		public event EventHandler<CAAnimationStateEventArgs>? AnimationStopped;
 
 		readonly WeakReference<IImageHandler>? _handler;
 
@@ -83,7 +81,6 @@ namespace Microsoft.Maui.Platform
 			{
 				if (_animation is not null && _animation.TryGetTarget(out var animation))
 				{
-					animation.AnimationStopped -= OnAnimationStopped;
 					Layer.RemoveAnimation(AnimationLayerName);
 					animation.Dispose();
 				}
@@ -92,17 +89,11 @@ namespace Microsoft.Maui.Platform
 
 				if (_animation is not null && _animation.TryGetTarget(out var newAnimation))
 				{
-					newAnimation.AnimationStopped += OnAnimationStopped;
 					Layer.AddAnimation(newAnimation, AnimationLayerName);
 				}
 
 				Layer.SetNeedsDisplay();
 			}
-		}
-
-		void OnAnimationStopped(object? sender, CAAnimationStateEventArgs e)
-		{
-			AnimationStopped?.Invoke(this, e);
 		}
 
 		public override bool IsAnimating
@@ -153,11 +144,6 @@ namespace Microsoft.Maui.Platform
 
 			if (disposing && _animation?.TryGetTarget(out var animation) != null)
 			{
-				if (animation is not null)
-				{
-					animation.AnimationStopped -= OnAnimationStopped;
-				}
-
 				Layer.RemoveAnimation(AnimationLayerName);
 				animation?.Dispose();
 				_animation = null;

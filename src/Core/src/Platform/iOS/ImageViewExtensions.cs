@@ -1,8 +1,5 @@
-﻿#nullable enable
-using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using ObjCRuntime;
 using UIKit;
 
 namespace Microsoft.Maui.Platform
@@ -20,24 +17,33 @@ namespace Microsoft.Maui.Platform
 			imageView.ClipsToBounds = imageView.ContentMode == UIViewContentMode.ScaleAspectFill;
 		}
 
-		public static void UpdateIsAnimationPlaying(this UIImageView imageView, IImageSourcePart image)
+		public static async Task UpdateIsAnimationPlaying(this UIImageView imageView, IImageSourcePart image)
 		{
-			if (image.IsAnimationPlaying)
-			{
-				if (!imageView.IsAnimating)
-					imageView.StartAnimating();
-			}
-			else
-			{
-				if (imageView.IsAnimating)
-					imageView.StopAnimating();
+
+			if (imageView is MauiImageView mauiImageView)
+			{				
+				if (image.IsAnimationPlaying)
+				{
+					if (!imageView.IsAnimating)
+					{
+						mauiImageView.Animation = await ImageAnimationHelper.CreateAnimationFromImageSource(image.Source);
+						mauiImageView.StartAnimating();
+					}
+				}
+				else
+				{
+					if (imageView.IsAnimating)
+					{
+						mauiImageView.StopAnimating();
+					}
+				}
 			}
 		}
 
 		public static void UpdateSource(this UIImageView imageView, UIImage? uIImage, IImageSourcePart image)
 		{
 			imageView.Image = uIImage;
-			imageView.UpdateIsAnimationPlaying(image);
+			imageView.UpdateIsAnimationPlaying(image).FireAndForget();
 		}
 
 		public static Task<IImageSourceServiceResult<UIImage>?> UpdateSourceAsync(

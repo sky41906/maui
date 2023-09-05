@@ -41,6 +41,7 @@ Microsoft.Maui.Platform.IImageSourcePartSetter.ImageSourcePart.get -> Microsoft.
 Microsoft.Maui.Platform.IImageSourcePartSetter.SetImageSource(UIKit.UIImage? platformImage) -> void
 Microsoft.Maui.Platform.ImageSourcePartLoader.ImageSourcePartLoader(Microsoft.Maui.Platform.IImageSourcePartSetter! setter) -> void
 Microsoft.Maui.Platform.KeyboardAutoManagerScroll
+Microsoft.Maui.Platform.MauiImageView.AnimationStopped -> System.EventHandler<CoreAnimation.CAAnimationStateEventArgs!>?
 Microsoft.Maui.Platform.MauiImageView.MauiImageView(Microsoft.Maui.Handlers.IImageHandler! handler) -> void
 Microsoft.Maui.Platform.MauiView.CrossPlatformLayout.get -> Microsoft.Maui.ICrossPlatformLayout?
 Microsoft.Maui.Platform.MauiView.CrossPlatformLayout.set -> void
@@ -62,6 +63,9 @@ override Microsoft.Maui.Platform.ContentView.WillRemoveSubview(UIKit.UIView! uiv
 override Microsoft.Maui.Platform.MauiActivityIndicator.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiBoxView.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiCheckBox.MovedToWindow() -> void
+override Microsoft.Maui.Platform.MauiImageView.Image.get -> UIKit.UIImage?
+override Microsoft.Maui.Platform.MauiImageView.Image.set -> void
+override Microsoft.Maui.Platform.MauiImageView.SizeThatFits(CoreGraphics.CGSize size) -> CoreGraphics.CGSize
 override Microsoft.Maui.Platform.MauiLabel.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiPageControl.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiRefreshView.Bounds.get -> CoreGraphics.CGRect
@@ -107,6 +111,7 @@ static Microsoft.Maui.Layouts.FlexBasis.operator !=(Microsoft.Maui.Layouts.FlexB
 static Microsoft.Maui.Layouts.FlexBasis.operator ==(Microsoft.Maui.Layouts.FlexBasis left, Microsoft.Maui.Layouts.FlexBasis right) -> bool
 static Microsoft.Maui.Layouts.LayoutExtensions.ArrangeContentUnbounded(this Microsoft.Maui.IContentView! contentView, Microsoft.Maui.Graphics.Rect bounds) -> Microsoft.Maui.Graphics.Size
 static Microsoft.Maui.Handlers.SearchBarHandler.MapKeyboard(Microsoft.Maui.Handlers.ISearchBarHandler! handler, Microsoft.Maui.ISearchBar! searchBar) -> void
+static Microsoft.Maui.Platform.ImageViewExtensions.UpdateIsAnimationPlaying(this UIKit.UIImageView! imageView, Microsoft.Maui.IImageSourcePart! image) -> System.Threading.Tasks.Task!
 static Microsoft.Maui.Platform.KeyboardAutoManagerScroll.Connect() -> void
 static Microsoft.Maui.Platform.KeyboardAutoManagerScroll.Disconnect() -> void
 static Microsoft.Maui.Platform.SearchBarExtensions.UpdateIsSpellCheckEnabled(this UIKit.UISearchBar! uiSearchBar, Microsoft.Maui.ISearchBar! searchBar, UIKit.UITextField? textField = null) -> void
@@ -156,3 +161,10 @@ Microsoft.Maui.Platform.MauiView.IsMeasureValid(double widthConstraint, double h
 Microsoft.Maui.Platform.UIEdgeInsetsExtensions
 static Microsoft.Maui.Platform.UIEdgeInsetsExtensions.ToThickness(this UIKit.UIEdgeInsets insets) -> Microsoft.Maui.Thickness
 override Microsoft.Maui.Handlers.BorderHandler.PlatformArrange(Microsoft.Maui.Graphics.Rect rect) -> void
+*REMOVED*static Microsoft.Maui.Platform.ImageViewExtensions.UpdateIsAnimationPlaying(this UIKit.UIImageView! imageView, Microsoft.Maui.IImageSourcePart! image) -> void
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation.MauiCAKeyFrameAnimation() -> void
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation.Width.get -> int
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation.Width.set -> void
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation.Height.get -> int
+Microsoft.Maui.Platform.MauiCAKeyFrameAnimation.Height.set -> void

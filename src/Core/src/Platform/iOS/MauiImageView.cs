@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using CoreAnimation;
 using CoreGraphics;
-using ObjCRuntime;
 using UIKit;
 
 namespace Microsoft.Maui.Platform
 {
 	public class MauiImageView : UIImageView, IUIViewLifeCycleEvents
 	{
+		bool _isDisposed;
+		const string AnimationLayerName = "FormsUIImageViewAnimation";
+		WeakReference<MauiCAKeyFrameAnimation>? _animation;
+
+		[UnconditionalSuppressMessage("Memory", "MA0001", Justification = "Proven safe in test: XYZ")]
+		public event EventHandler<CAAnimationStateEventArgs>? AnimationStopped;
+
 		readonly WeakReference<IImageHandler>? _handler;
 
 		public MauiImageView(IImageHandler handler) => _handler = new(handler);
@@ -45,6 +52,119 @@ namespace Microsoft.Maui.Platform
 		{
 			add { }
 			remove { }
+		}
+
+		public override UIImage? Image
+		{
+			get
+			{
+				return base.Image;
+			}
+			set
+			{
+				base.Image = value;
+			}
+		}
+
+		public override CGSize SizeThatFits(CGSize size)
+		{
+			if (Image == null && Animation != null)
+			{
+				return new CGSize(Animation.Width, Animation.Height);
+			}
+
+			return base.SizeThatFits(size);
+		}
+#pragma warning disable RS0016
+		public MauiCAKeyFrameAnimation? Animation
+		{
+			get { return _animation?.GetTargetOrDefault(); }
+			set
+			{
+				if (_animation is not null && _animation.TryGetTarget(out var animation))
+				{
+					animation.AnimationStopped -= OnAnimationStopped;
+					Layer.RemoveAnimation(AnimationLayerName);
+					animation.Dispose();
+				}
+
+				_animation = value is null ? null : new WeakReference<MauiCAKeyFrameAnimation>(value);
+
+				if (_animation is not null && _animation.TryGetTarget(out var newAnimation))
+				{
+					#pragma warning disable MA0003
+					newAnimation.AnimationStopped += OnAnimationStopped;
+					Layer.AddAnimation(newAnimation, AnimationLayerName);
+				}
+
+				Layer.SetNeedsDisplay();
+			}
+		}
+
+		void OnAnimationStopped(object? sender, CAAnimationStateEventArgs e)
+		{
+			AnimationStopped?.Invoke(this, e);
+		}
+
+		public override bool IsAnimating
+		{
+			get
+			{
+				if (_animation is not null)
+					return Layer.Speed != 0.0f;
+				else
+					return base.IsAnimating;
+			}
+		}
+
+		public override void StartAnimating()
+		{
+			if (_animation is not null && _animation.TryGetTarget(out var animation) && Layer.Speed == 0.0f)
+			{
+				Layer.RemoveAnimation(AnimationLayerName);
+				Layer.AddAnimation(animation, AnimationLayerName);
+				Layer.Speed = 1.0f;
+			}
+			else
+			{
+				base.StartAnimating();
+			}
+		}
+
+		public override void StopAnimating()
+		{
+			if (_animation is not null && _animation.TryGetTarget(out var animation) && Layer.Speed != 0.0f)
+			{
+				Layer.RemoveAnimation(AnimationLayerName);
+				Layer.AddAnimation(animation, AnimationLayerName);
+				Layer.Speed = 0.0f;
+			}
+			else
+			{
+				base.StopAnimating();
+			}
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (_isDisposed)
+				return;
+
+			_isDisposed = true;
+
+			if (disposing && _animation?.TryGetTarget(out var animation) != null)
+			{
+				if (animation is not null)
+				{
+					animation.AnimationStopped -= OnAnimationStopped;
+				}
+
+				Layer.RemoveAnimation(AnimationLayerName);
+				animation?.Dispose();
+				_animation = null;
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

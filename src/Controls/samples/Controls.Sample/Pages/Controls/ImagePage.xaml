@@ -63,6 +63,12 @@
                     Background="Black"
                     Source="dotnet_bot.png"
                    />
+                <Label
+                    Text="Animated GIF"
+                    Style="{StaticResource Headline}"/>
+                <Image 
+                    Source="animated_heart.gif"
+                    IsAnimationPlaying="True" />
             </VerticalStackLayout>
         </ScrollView>
     </views:BasePage.Content>

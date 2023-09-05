@@ -9,7 +9,7 @@ namespace Microsoft.Maui.Platform
 	public class MauiImageView : UIImageView, IUIViewLifeCycleEvents
 	{
 		bool _isDisposed;
-		const string AnimationLayerName = "FormsUIImageViewAnimation";
+		const string AnimationLayerName = "MauiUIImageViewAnimation";
 		WeakReference<MauiCAKeyFrameAnimation>? _animation;
 
 		[UnconditionalSuppressMessage("Memory", "MA0001", Justification = "Proven safe in test: XYZ")]
@@ -75,7 +75,7 @@ namespace Microsoft.Maui.Platform
 
 			return base.SizeThatFits(size);
 		}
-#pragma warning disable RS0016
+
 		public MauiCAKeyFrameAnimation? Animation
 		{
 			get { return _animation?.GetTargetOrDefault(); }
@@ -92,7 +92,6 @@ namespace Microsoft.Maui.Platform
 
 				if (_animation is not null && _animation.TryGetTarget(out var newAnimation))
 				{
-					#pragma warning disable MA0003
 					newAnimation.AnimationStopped += OnAnimationStopped;
 					Layer.AddAnimation(newAnimation, AnimationLayerName);
 				}

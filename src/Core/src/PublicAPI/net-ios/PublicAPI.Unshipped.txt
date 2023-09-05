@@ -41,6 +41,8 @@ Microsoft.Maui.Platform.IImageSourcePartSetter.ImageSourcePart.get -> Microsoft.
 Microsoft.Maui.Platform.IImageSourcePartSetter.SetImageSource(UIKit.UIImage? platformImage) -> void
 Microsoft.Maui.Platform.ImageSourcePartLoader.ImageSourcePartLoader(Microsoft.Maui.Platform.IImageSourcePartSetter! setter) -> void
 Microsoft.Maui.Platform.KeyboardAutoManagerScroll
+Microsoft.Maui.Platform.MauiImageView.Animation.get -> Microsoft.Maui.Platform.MauiCAKeyFrameAnimation?
+Microsoft.Maui.Platform.MauiImageView.Animation.set -> void
 Microsoft.Maui.Platform.MauiImageView.AnimationStopped -> System.EventHandler<CoreAnimation.CAAnimationStateEventArgs!>?
 Microsoft.Maui.Platform.MauiImageView.MauiImageView(Microsoft.Maui.Handlers.IImageHandler! handler) -> void
 Microsoft.Maui.Platform.MauiView.CrossPlatformLayout.get -> Microsoft.Maui.ICrossPlatformLayout?
@@ -63,9 +65,13 @@ override Microsoft.Maui.Platform.ContentView.WillRemoveSubview(UIKit.UIView! uiv
 override Microsoft.Maui.Platform.MauiActivityIndicator.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiBoxView.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiCheckBox.MovedToWindow() -> void
+override Microsoft.Maui.Platform.MauiImageView.Dispose(bool disposing) -> void
 override Microsoft.Maui.Platform.MauiImageView.Image.get -> UIKit.UIImage?
 override Microsoft.Maui.Platform.MauiImageView.Image.set -> void
+override Microsoft.Maui.Platform.MauiImageView.IsAnimating.get -> bool
 override Microsoft.Maui.Platform.MauiImageView.SizeThatFits(CoreGraphics.CGSize size) -> CoreGraphics.CGSize
+override Microsoft.Maui.Platform.MauiImageView.StartAnimating() -> void
+override Microsoft.Maui.Platform.MauiImageView.StopAnimating() -> void
 override Microsoft.Maui.Platform.MauiLabel.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiPageControl.MovedToWindow() -> void
 override Microsoft.Maui.Platform.MauiRefreshView.Bounds.get -> CoreGraphics.CGRect

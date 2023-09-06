@@ -192,10 +192,11 @@ namespace Microsoft.Maui.Handlers
 				if (e.IsCompletedAction(currentInputImeFlag))
 				{
 					VirtualView?.Completed();
+
+					if (returnType == ReturnType.Done)
+						handled = true;
 				}
-				else if (
-					currentInputImeFlag == ImeAction.Done
-					&& e.ActionId == ImeAction.ImeNull
+				else if (e.ActionId == ImeAction.ImeNull
 					&& e.Event?.KeyCode == Keycode.Enter
 					&& e.Event?.Action == KeyEventActions.Down)
 				{

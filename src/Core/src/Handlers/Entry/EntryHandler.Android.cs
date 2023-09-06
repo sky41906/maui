@@ -192,7 +192,6 @@ namespace Microsoft.Maui.Handlers
 				if (e.IsCompletedAction(currentInputImeFlag))
 				{
 					VirtualView?.Completed();
-					handled = true;
 				}
 				else if (
 					currentInputImeFlag == ImeAction.Done

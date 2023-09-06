@@ -712,13 +712,31 @@ namespace Maui.Controls.Sample
 
 		public enum InputTransparency
 		{
-			Default,
-			IsFalse,
-			IsTrue,
+			// Button
+			DefaultButtonOverlay,
+			ButtonOverlay,
+			TransButtonOverlay,
+			// Image
+			ImageOverlayInputBlocked,
+			TransImageOverlay,
+			ImageBackOverlayInputBlocked,
+			TransImageBackOverlay,
+			// Layout
+			LayoutOverlayInputBlocked,
 			TransLayoutOverlay,
 			TransLayoutOverlayWithButton,
 			CascadeTransLayoutOverlay,
 			CascadeTransLayoutOverlayWithButton,
+			// CollectionView
+			CollectionViewItemLayoutOverlay,
+			CollectionViewItemTransLayoutOverlay,
+			CollectionViewItemButtonOverlay,
+			CollectionViewItemTransButtonOverlay,
+			// ListView
+			ListViewItemLayoutOverlay,
+			ListViewItemTransLayoutOverlay,
+			ListViewItemButtonOverlay,
+			ListViewItemTransButtonOverlay,
 		}
 
 		public static class InputTransparencyMatrix

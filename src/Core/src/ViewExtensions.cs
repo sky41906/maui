@@ -55,7 +55,16 @@ namespace Microsoft.Maui
 				return true;
 
 #if ANDROID
-			if (view?.InputTransparent == true)
+			// Non-interactable controls need a layer to intercept touch events,
+			// but not layouts as they are already special and can intercept
+			// themselves.
+			// TODO: reduce the amount of wrapping
+			// A further enhancement would be to restrict this wrapper for just
+			// non-interactable controls. For example, a Button does not need
+			// to be wrapped, but an Image does. This can be done by moving
+			// this logic into each handler that really does need a wrapper -
+			// such as ImageHandler.
+			if (view?.InputTransparent == true && view is not ILayout)
 				return true;
 #endif
 

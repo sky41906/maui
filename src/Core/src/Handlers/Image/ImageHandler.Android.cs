@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Android.Graphics.Drawables;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Google.Android.Material.Button;
@@ -18,12 +19,17 @@ namespace Microsoft.Maui.Handlers
 			// measurement passes.
 			imageView.SetAdjustViewBounds(true);
 
+			// Non-interactive controls also need to "block" touch events if they are covering
+			// other interactive controls.
+			TouchEventInterceptor.ConnectListener(imageView);
+
 			return imageView;
 		}
 
 		protected override void DisconnectHandler(ImageView platformView)
 		{
 			base.DisconnectHandler(platformView);
+			TouchEventInterceptor.DisconnectListener(platformView);
 			SourceLoader.Reset();
 		}
 

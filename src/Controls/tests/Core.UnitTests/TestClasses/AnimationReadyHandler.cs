@@ -33,10 +33,13 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 		public static AnimationReadyHandler<TTicker> Prepare<T>(params T[] views)
 			where T : View
 		{
-			var handler = new AnimationReadyHandler<TTicker>(new TestAnimationManager(new TTicker()));
+			AnimationReadyHandler<TTicker> handler = null;
 
 			foreach (var view in views)
+			{
+				handler = new AnimationReadyHandler<TTicker>(new TestAnimationManager(new TTicker()));
 				view.Handler = handler;
+			}
 
 			return handler;
 		}

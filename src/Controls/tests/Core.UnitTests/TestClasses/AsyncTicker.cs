@@ -6,13 +6,12 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 	class AsyncTicker : Ticker
 	{
 		bool _enabled;
-		bool _systemEnabled = true;
 
-		public override bool SystemEnabled => _systemEnabled;
+		public override bool IsRunning => _enabled; 
 
 		public void SetEnabled(bool enabled)
 		{
-			_systemEnabled = enabled;
+			SystemEnabled = enabled;
 			_enabled = enabled;
 		}
 

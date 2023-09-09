@@ -39,12 +39,18 @@ namespace Microsoft.Maui.Controls
 		{
 			_step = step;
 		}
+		
 		protected override void OnTick(double millisecondsSinceLastUpdate)
 		{
 			var running = _step.Invoke((long)millisecondsSinceLastUpdate);
 			HasFinished = !running;
 		}
 
+		internal override void ForceFinish()
+		{
+			var running = _step.Invoke(long.MaxValue);
+			HasFinished = !running;
+		}
 	}
 
 	internal class Tweener

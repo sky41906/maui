@@ -279,8 +279,11 @@ namespace Microsoft.Maui.Controls
 				if (!result)
 				{
 					finished?.Invoke();
+					if (s_kinetics.TryGetValue(key, out var ticker))
+					{
+						animationManager.Remove(ticker);
+					}
 					s_kinetics.Remove(key);
-					animationManager.Remove(tick);
 				}
 				return result;
 			});

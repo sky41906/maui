@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Animation;
+using Java.Interop;
 
 namespace Microsoft.Maui.Animations
 {
@@ -9,6 +10,7 @@ namespace Microsoft.Maui.Animations
 		readonly IEnergySaverListenerManager _manager;
 		readonly ValueAnimator _val;
 		bool _disposedValue;
+		readonly DurationScaleListener? _durationScaleListener;
 
 		/// <summary>
 		/// Creates a new Android <see cref="PlatformTicker"/> object. 
@@ -25,6 +27,12 @@ namespace Microsoft.Maui.Animations
 			CheckAnimationEnabledStatus();
 
 			_manager.Add(this);
+
+			if (OperatingSystem.IsAndroidVersionAtLeast(33))
+			{
+				_durationScaleListener = new DurationScaleListener(CheckAnimationEnabledStatus);
+				ValueAnimator.RegisterDurationScaleChangeListener(_durationScaleListener);
+			}
 		}
 
 		/// <inheritdoc/>
@@ -42,7 +50,14 @@ namespace Microsoft.Maui.Animations
 			if (!_disposedValue)
 			{
 				if (disposing)
+				{
 					_manager.Remove(this);
+
+					if (OperatingSystem.IsAndroidVersionAtLeast(33) && _durationScaleListener != null)
+					{
+						ValueAnimator.UnregisterDurationScaleChangeListener(_durationScaleListener);
+					}
+				}
 
 				_disposedValue = true;
 			}
@@ -90,6 +105,21 @@ namespace Microsoft.Maui.Animations
 
 			// We don't support anything below 21
 			return false;
+		}
+
+		class DurationScaleListener : Java.Lang.Object, ValueAnimator.IDurationScaleChangeListener
+		{
+			readonly Action _check;
+
+			public DurationScaleListener(Action check) 
+			{
+				_check = check;
+			}
+
+			public void OnChanged(float scale)
+			{
+				_check.Invoke();
+			}
 		}
 	}
 }

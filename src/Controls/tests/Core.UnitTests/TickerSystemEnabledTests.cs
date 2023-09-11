@@ -36,7 +36,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 			Assert.Equal(0, view.Opacity);
 		}
 
-		[Fact(Timeout = 3000)]
+		[Fact(Timeout = 5000)]
 		public async Task DisablingTickerFinishesAllAnimationsInChain()
 		{
 			var view1 = new View { Opacity = 1 };

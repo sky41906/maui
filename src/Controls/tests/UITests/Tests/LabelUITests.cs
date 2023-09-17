@@ -26,9 +26,7 @@ public class LabelUITests : _ViewUITests
 	[Test]
 	public void SpanTapped()
 	{
-		if (Device == TestDevice.Mac ||
-			Device == TestDevice.iOS ||
-			Device == TestDevice.Windows)
+		if (Device == TestDevice.Windows)
 		{
 			Assert.Ignore("This test is failing on iOS/Mac Catalyst/Windows because the feature is not yet implemented: https://github.com/dotnet/maui/issues/4734");
 		}

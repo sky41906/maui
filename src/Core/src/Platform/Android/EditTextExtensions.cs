@@ -350,6 +350,7 @@ namespace Microsoft.Maui.Platform
 				return false;
 
 			var motionEvent = touchEvent?.Event;
+
 			if (motionEvent is null)
 				return false;
 
@@ -362,7 +363,7 @@ namespace Microsoft.Maui.Platform
 			if (buttonWidth <= 0)
 				return false;
 
-			var x = motionEvent.GetX();
+			var x = motionEvent.RawX;
 			var y = motionEvent.GetY();
 
 			var flowDirection = platformView.LayoutDirection;
@@ -371,7 +372,8 @@ namespace Microsoft.Maui.Platform
 				|| x < platformView.Right - buttonWidth
 				|| x > platformView.Right - platformView.PaddingRight
 				|| y < platformView.PaddingTop
-				|| y > platformView.Height - platformView.PaddingBottom) &&
+				|| y > platformView.Height - platformView.PaddingBottom) 
+				&&
 				(flowDirection != LayoutDirection.Rtl
 				|| x < platformView.Left + platformView.PaddingLeft
 				|| x > platformView.Left + buttonWidth

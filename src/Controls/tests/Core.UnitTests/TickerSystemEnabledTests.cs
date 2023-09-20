@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.Maui.Controls.Core.UnitTests
 {
-
+	[CollectionDefinition(nameof(TickerSystemEnabledTests), DisableParallelization = true)]
 	public class TickerSystemEnabledTests : IDisposable
 	{
 		public TickerSystemEnabledTests()
@@ -20,7 +20,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 			DispatcherProvider.SetCurrent(null);
 		}
 
-		async Task SwapFadeViews(View view1, View view2)
+		static async Task SwapFadeViews(View view1, View view2)
 		{
 			await view1.FadeTo(0, 1000);
 			await view2.FadeTo(1, 1000);
@@ -36,7 +36,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 			Assert.Equal(0, view.Opacity);
 		}
 
-		[Fact(Timeout = 5000)]
+		[Fact(Timeout = 3000)]
 		public async Task DisablingTickerFinishesAllAnimationsInChain()
 		{
 			var view1 = new View { Opacity = 1 };

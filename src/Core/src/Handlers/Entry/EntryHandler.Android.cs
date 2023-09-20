@@ -201,10 +201,10 @@ namespace Microsoft.Maui.Handlers
 						handled = true;
 					}
 				}
-				else if (e.ActionId == ImeAction.ImeNull
-					&& e.Event?.KeyCode == Keycode.Enter
-					&& e.Event?.Action == KeyEventActions.Down
-					&& returnType == ReturnType.Done)
+				else if (e.ActionId == ImeAction.ImeNull &&
+						 e.Event?.KeyCode == Keycode.Enter &&
+						 e.Event?.Action == KeyEventActions.Down &&
+						 returnType == ReturnType.Done)
 				{
 					// If the user has indicated that they want this to be a "done" field
 					// then we will mark this as handled if we detect the enter key.

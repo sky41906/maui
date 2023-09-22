@@ -179,5 +179,20 @@ namespace Microsoft.Maui.Controls
 		}
 
 		public event EventHandler ValueUpdated;
+
+		~Tweener()
+		{
+			if (_timer != 0)
+			{
+				try
+				{
+					animationManager.Remove(_timer);
+				}
+				catch (InvalidOperationException)
+				{
+				}
+			}
+			_timer = 0;
+		}
 	}
 }

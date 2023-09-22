@@ -11,7 +11,6 @@ using Xunit;
 namespace Microsoft.Maui.Controls.Core.UnitTests
 {
 
-	[CollectionDefinition(nameof(ViewUnitTests), DisableParallelization = true)]
 	public class ViewUnitTests : BaseTestFixture
 	{
 		MockDeviceInfo mockDeviceInfo;

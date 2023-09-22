@@ -5,21 +5,28 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 {
 	class AsyncTicker : Ticker
 	{
-		bool _enabled;
+		bool _running;
 
-		public override bool IsRunning => _enabled; 
+		public override bool IsRunning => _running; 
 
 		public void SetEnabled(bool enabled)
 		{
 			SystemEnabled = enabled;
-			_enabled = enabled;
+
+			if (!enabled)
+			{
+				_running = false;
+			}
 		}
 
 		public override async void Start()
 		{
-			_enabled = true;
+			if (SystemEnabled)
+			{
+				_running = true;
+			}
 
-			while (_enabled)
+			while (_running)
 			{
 				Fire?.Invoke();
 				await Task.Delay(16);
@@ -28,7 +35,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
 		public override void Stop()
 		{
-			_enabled = false;
+			_running = false;
 		}
 	}
 }

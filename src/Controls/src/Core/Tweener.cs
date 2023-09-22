@@ -48,6 +48,11 @@ namespace Microsoft.Maui.Controls
 
 		internal override void ForceFinish()
 		{
+			if (HasFinished)
+			{
+				return;
+			}
+
 			var running = _step.Invoke(long.MaxValue);
 			HasFinished = !running;
 		}
@@ -174,20 +179,5 @@ namespace Microsoft.Maui.Controls
 		}
 
 		public event EventHandler ValueUpdated;
-
-		~Tweener()
-		{
-			if (_timer != 0)
-			{
-				try
-				{
-					animationManager.Remove(_timer);
-				}
-				catch (InvalidOperationException)
-				{
-				}
-			}
-			_timer = 0;
-		}
 	}
 }

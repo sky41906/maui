@@ -2,6 +2,7 @@ using Microsoft.Maui.IntegrationTests.Apple;
 
 namespace Microsoft.Maui.IntegrationTests
 {
+	[Parallelizable(scope: ParallelScope.All)]
 	public class TemplateTests : BaseBuildTest
 	{
 		[SetUp]

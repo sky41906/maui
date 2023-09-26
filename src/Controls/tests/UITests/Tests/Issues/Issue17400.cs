@@ -14,11 +14,13 @@ namespace Microsoft.Maui.AppiumTests.Issues
 		[Test]
 		public void Issue17400Test()
 		{
-			UITestContext.IgnoreIfPlatforms(new TestDevice[] { TestDevice.iOS, TestDevice.Android },
+			UITestContext.IgnoreIfPlatforms(new TestDevice[] { TestDevice.iOS, TestDevice.Android, TestDevice.Mac },
 				"Is a Windows issue; see https://github.com/dotnet/maui/issues/17400");
 
-			App.WaitForElement("WaitForStubControl");
+			App.WaitForElement("UpdateBtn");
 			App.Tap("UpdateBtn");
+
+			App.WaitForElement("WaitForStubControl");
 			VerifyScreenshot();
 		}
 	}

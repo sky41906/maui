@@ -5,7 +5,6 @@
              xmlns:ns="clr-namespace:Maui.Controls.Sample.Issues"
              Title="Issue 17400">
     <Grid
-        AutomationId="WaitForStubControl"
         Padding="30,0"
         VerticalOptions="Center"
         RowDefinitions="*, Auto">
@@ -19,6 +18,7 @@
                         HeightRequest="60" 
                         RowDefinitions=" 30,29,1">
                         <Label 
+                            AutomationId="WaitForStubControl"
                             Grid.Row="0" 
                             Text="{Binding Label}" 
                             FontSize="20" 
